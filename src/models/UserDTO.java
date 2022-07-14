@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 
 public class UserDTO {
 
@@ -9,6 +11,7 @@ public class UserDTO {
     private String IDNumber;
     private int age;
     private static String otp;
+    public ArrayList<Account> accounts;
 
     public UserDTO() {
 
@@ -20,6 +23,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.IDNumber = user.getIDNumber();
         this.age = user.getAge();
+        this.accounts = user.accounts;
     }
 
     public String getName() {

@@ -37,8 +37,8 @@ public class UserController {
 
     }
 
-    public static void changePassword(String email, String password) {
-        backend.changePassword(email, password);
+    public static void changeUserPassword(String email, String password) {
+        backend.changeUserPassword(email, password);
     }
 
     // Check Password

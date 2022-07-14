@@ -142,7 +142,7 @@ public class mainMenu extends javax.swing.JFrame {
         } else {
             decodedPeriod = AM;
         }
-      //  headingBanner.setText("Good " + decodedPeriod + " " + userDetails.getName() + ", your balance is " + userDetails.getBalance());
+        headingBanner.setText("Good " + decodedPeriod + " " + userDetails.getName() + ", your balance is " + userDetails.accounts);
     }// GEN-LAST:event_headingBannerAncestorAdded
 
     /**

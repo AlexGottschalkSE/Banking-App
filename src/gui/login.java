@@ -18,7 +18,6 @@ public class login extends javax.swing.JFrame {
 
     String code;
 
-
     /**
      * Creates new form login
      */
@@ -203,27 +202,38 @@ public class login extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+
         String email = loginEmail.getText();
         String password = loginPassword.getText();
-        UserDTO user = UserController.LoginUser(email, password);
-        createOTP otp = new createOTP();
-        
-        
-        code = otp.createCode();
 
-        if (user == null) {
-            this.hide();
-            this.setVisible(true);
+        if (isAdmin(email,password)) {
+            admin adminPage = new admin();
+            adminPage.setVisible(true);
         } else {
-            user.setOTP(code);
-            SendEmail msg = new SendEmail(email, "Welcome back " + user.getName(), "Your OTP is: " + code);
-            otpForm form = new otpForm();
-            form.setVisible(true);
-            form.setPrevious(this);
-            form.setUserDetails(user);
+            UserDTO user = UserController.LoginUser(email, password);
+            createOTP otp = new createOTP();
+
+            code = otp.createCode();
+
+            if (user == null) {
+                this.hide();
+                this.setVisible(true);
+            } else {
+                user.setOTP(code);
+                SendEmail msg = new SendEmail(email, "Welcome back " + user.getName(), "Your OTP is: " + code);
+                otpForm form = new otpForm();
+                form.setVisible(true);
+                form.setPrevious(this);
+                form.setUserDetails(user);
+            }
         }
     }// GEN-LAST:event_jButton2MouseClicked
+
+    private Boolean isAdmin(String email, String password) {
+        return ("admin".equals(email)) && ("admin".equals(password));
+    }
     
+
     private void loginPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loginPasswordActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_loginPasswordActionPerformed
@@ -287,9 +297,6 @@ public class login extends javax.swing.JFrame {
 
     }
 
-    public String getOTP() {
-        return this.code;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
     private javax.swing.JButton jButton2;

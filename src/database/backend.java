@@ -3,6 +3,8 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 import models.Account;
+import models.AccountType;
+import models.TransactionType;
 import models.User;
 import services.generateBalance;
 
@@ -56,7 +58,7 @@ public class backend {
 
                 if (newUserID > 0) {
                     statement = connection.prepareStatement(
-                            "INSERT INTO ACCOUNTS(balance, userID) VALUES (?,?)");  
+                            "INSERT INTO ACCOUNTS(balance, userID) VALUES (?,?)");
                     statement.setDouble(1, generate.createBalance());
                     statement.setInt(2, newUserID);
                     statement.executeUpdate();
@@ -93,7 +95,7 @@ public class backend {
                 user.accounts = new ArrayList<>();
                 while (balancesRs.next()) {
                     Account account = new Account();
-                    account.setId(balancesRs.getInt("id"));
+                    account.setId(balancesRs.getInt("accountID"));
                     account.setUserID(balancesRs.getInt("userID"));
                     account.setBalance(balancesRs.getDouble("balance"));
                     user.accounts.add(account);
@@ -110,7 +112,7 @@ public class backend {
 
     }
 
-    public static void changePassword(String email, String password) {
+    public static void changeUserPassword(String email, String password) {
         try {
             Connection connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
@@ -122,7 +124,118 @@ public class backend {
         }
     }
 
-    public static void getFirstName() {
+    public static ArrayList getAccountTypes() {
+        ArrayList<AccountType> accountTypes = new ArrayList<>();
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM AccountTypes");
+            ResultSet accountTypesRs = statement.executeQuery();
 
+            while (accountTypesRs.next()) {
+                AccountType type = new AccountType();
+                type.setAccountTypeID(accountTypesRs.getInt("accountTypeID"));
+                type.setName(accountTypesRs.getString("name"));
+                type.setDescription(accountTypesRs.getString("description"));
+                type.setCode(accountTypesRs.getString("code"));
+                accountTypes.add(type);
+            }
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+        return accountTypes;
+    }
+
+    public static void createNewAccountType(AccountType type) {
+        try {
+            Connection connection = getConn();
+            if (connection != null) {
+                PreparedStatement statement = connection.prepareStatement(
+                        "INSERT INTO AccountTypes(name, description, code) VALUES (?,?,?)");
+                statement.setString(1, type.getName());
+                statement.setString(2, type.getDescription());
+                statement.setString(3, type.getCode());
+                int result = statement.executeUpdate();
+                if (result == 0) {
+                    throw new SQLException();
+                }
+
+            }
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }
+
+    public static void changeAccountType(AccountType type) {
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE ACCOUNTTYPES SET name = ?, description = ? WHERE code = ?");
+            statement.setString(1, type.getName());
+            statement.setString(2, type.getDescription());
+            statement.setString(3, type.getCode());
+            statement.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }
+
+    public static void deleteAccountType(String code) {
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "DELETE FROM ACCOUNTTYPES WHERE code = ?");
+            statement.setString(1, code);
+            statement.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }
+    
+        public static void createNewTransactionType(TransactionType type) {
+        try {
+            Connection connection = getConn();
+            if (connection != null) {
+                PreparedStatement statement = connection.prepareStatement(
+                        "INSERT INTO TRANSACTIONTYPES(name, description, code) VALUES (?,?,?)");
+                statement.setString(1, type.getName());
+                statement.setString(2, type.getDescription());
+                statement.setString(3, type.getCode());
+                int result = statement.executeUpdate();
+                if (result == 0) {
+                    throw new SQLException();
+                }
+
+            }
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }
+
+    public static void changeTransactionType(TransactionType type) {
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE TRANSACTIONTYPES SET name = ?, description = ? WHERE code = ?");
+            statement.setString(1, type.getName());
+            statement.setString(2, type.getDescription());
+            statement.setString(3, type.getCode());
+            statement.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }
+
+    public static void deleteTransactionType(String code) {
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "DELETE FROM TRANSACTIONTYPES WHERE code = ?");
+            statement.setString(1, code);
+            statement.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
     }
 }

@@ -6,6 +6,7 @@ public class Account {
     private Double balance;
     private int userID;
     public User user;
+    public AccountType accountType;
 
     public int getId() {
         return id;

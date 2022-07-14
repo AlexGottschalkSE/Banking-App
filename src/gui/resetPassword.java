@@ -146,7 +146,7 @@ public class resetPassword extends javax.swing.JFrame {
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         String newPassword = passwordInput.getText();
         String email = emailInput.getText();
-        UserController.changePassword(email, newPassword);
+        UserController.changeUserPassword(email, newPassword);
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
