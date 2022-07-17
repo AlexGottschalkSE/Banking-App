@@ -35,12 +35,10 @@ public class admin extends javax.swing.JFrame {
     private void initComponents() {
 
         BackPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         headingBanner = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnAddAccountType = new javax.swing.JButton();
         btnEditAccountType = new javax.swing.JButton();
@@ -48,6 +46,9 @@ public class admin extends javax.swing.JFrame {
         btnAddTransactionType = new javax.swing.JButton();
         btnEditTransactionType = new javax.swing.JButton();
         btnDeleteTransactionType = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        outputArea = new javax.swing.JTextArea();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -55,14 +56,14 @@ public class admin extends javax.swing.JFrame {
         BackPanel.setBackground(new java.awt.Color(0, 0, 0));
         BackPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5cb0068c7da75a8e715438a94790626b.jpg"))); // NOI18N
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/letter-x_1995355.jpg"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
         });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5cb0068c7da75a8e715438a94790626b.jpg"))); // NOI18N
 
         headingBanner.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         headingBanner.setForeground(new java.awt.Color(240, 240, 240));
@@ -73,36 +74,17 @@ public class admin extends javax.swing.JFrame {
             }
         });
         headingBanner.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 headingBannerAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
         });
 
-        jTable1.setBackground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Account Type ID", "Name", "Description", "Code"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jTable1.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable1.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(jTable1);
-
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Display Account Types");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,6 +92,8 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnAddAccountType.setBackground(new java.awt.Color(0, 0, 0));
+        btnAddAccountType.setForeground(new java.awt.Color(255, 255, 255));
         btnAddAccountType.setText("Add Account Type");
         btnAddAccountType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -117,6 +101,8 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnEditAccountType.setBackground(new java.awt.Color(0, 0, 0));
+        btnEditAccountType.setForeground(new java.awt.Color(255, 255, 255));
         btnEditAccountType.setText("Edit Account Type");
         btnEditAccountType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,6 +110,8 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteAccountType.setBackground(new java.awt.Color(0, 0, 0));
+        btnDeleteAccountType.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteAccountType.setText("Delete Account Type");
         btnDeleteAccountType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,6 +119,8 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnAddTransactionType.setBackground(new java.awt.Color(0, 0, 0));
+        btnAddTransactionType.setForeground(new java.awt.Color(255, 255, 255));
         btnAddTransactionType.setText("Add Transaction Type");
         btnAddTransactionType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -138,6 +128,8 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnEditTransactionType.setBackground(new java.awt.Color(0, 0, 0));
+        btnEditTransactionType.setForeground(new java.awt.Color(255, 255, 255));
         btnEditTransactionType.setText("Edit Transaction Type");
         btnEditTransactionType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,10 +137,31 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteTransactionType.setBackground(new java.awt.Color(0, 0, 0));
+        btnDeleteTransactionType.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteTransactionType.setText("Delete Transaction Type");
         btnDeleteTransactionType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDeleteTransactionTypeMouseClicked(evt);
+            }
+        });
+
+        outputArea.setEditable(false);
+        outputArea.setBackground(new java.awt.Color(0, 0, 0));
+        outputArea.setColumns(20);
+        outputArea.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        outputArea.setForeground(new java.awt.Color(255, 255, 255));
+        outputArea.setLineWrap(true);
+        outputArea.setRows(5);
+        outputArea.setBorder(null);
+        jScrollPane2.setViewportView(outputArea);
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Display Transaction Types");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
             }
         });
 
@@ -157,71 +170,68 @@ public class admin extends javax.swing.JFrame {
         BackPanelLayout.setHorizontalGroup(
             BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BackPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAddTransactionType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDeleteTransactionType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditTransactionType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDeleteAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAddAccountType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddAccountType)
-                            .addComponent(jButton1)
-                            .addComponent(btnEditAccountType)
-                            .addComponent(btnDeleteAccountType))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(BackPanelLayout.createSequentialGroup()
-                            .addComponent(headingBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(58, 58, 58)
-                            .addComponent(jLabel3))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackPanelLayout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)))
+                            .addGroup(BackPanelLayout.createSequentialGroup()
+                                .addComponent(headingBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel3))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(278, 278, 278))
                     .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddTransactionType)
-                            .addComponent(btnEditTransactionType)
-                            .addComponent(btnDeleteTransactionType))))
-                .addGap(278, 278, 278))
+                        .addGap(144, 144, 144)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         BackPanelLayout.setVerticalGroup(
             BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(42, 42, 42)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddAccountType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditAccountType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeleteAccountType)
+                .addGap(16, 16, 16)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddTransactionType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeleteTransactionType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditTransactionType)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(BackPanelLayout.createSequentialGroup()
                 .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(BackPanelLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(headingBanner))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackPanelLayout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAddAccountType)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditAccountType)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDeleteAccountType))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackPanelLayout.createSequentialGroup()
-                        .addComponent(btnAddTransactionType)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditTransactionType)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDeleteTransactionType)))
-                .addGap(254, 254, 254))
+                        .addGap(20, 20, 20)
+                        .addComponent(headingBanner))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,14 +263,31 @@ public class admin extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        ArrayList accountTypeList = AdminController.getAccountTypes();
-        DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
-        String[] stringArray = accountTypeList.toArray(new String[1]);
-        for (int i = 0; i <= accountTypeList.size(); i++) {
-            String tbData[] = (String[]) accountTypeList.get(i);
-            tblModel.addRow(tbData);
-        }
+        displayAccountTypes();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void displayAccountTypes() {
+        ArrayList accountTypeList = AdminController.getAccountTypes();
+        
+        
+        outputArea.setText("Here are the current account types" + "\nName" + "\t" + "Code\n");
+        for (int i = 0; i < accountTypeList.size();) {
+            AccountType type = (AccountType) accountTypeList.get(i);
+            outputArea.append("\n" + type.getName() + "\t" + type.getCode());
+            i++;
+        }
+    }
+
+    private void displayTransactionTypes() {
+        outputArea.setText("");
+        ArrayList transactionTypes = AdminController.getTransactionTypes();
+        outputArea.setText("Here are the current transaction types" + "\nName" + "\t" + "Code\n");
+        for (int i = 0; i < transactionTypes.size();) {
+            TransactionType type = (TransactionType) transactionTypes.get(i);
+            outputArea.append("\n" + type.getName() + "\t" + type.getCode());
+            i++;
+        }
+    }
 
     private void btnAddAccountTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAccountTypeMouseClicked
         String name = JOptionPane.showInputDialog(null, "Enter Name Of Account Type");
@@ -313,6 +340,10 @@ public class admin extends javax.swing.JFrame {
         AdminController.deleteTransactionType(code);
     }//GEN-LAST:event_btnDeleteTransactionTypeMouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        displayTransactionTypes();
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -358,10 +389,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton btnEditTransactionType;
     private javax.swing.JLabel headingBanner;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea outputArea;
     // End of variables declaration//GEN-END:variables
 }

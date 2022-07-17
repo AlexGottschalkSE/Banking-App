@@ -17,6 +17,16 @@ public class AdminController {
         return accountTypeList;
     }
 
+    public static ArrayList getTransactionTypes() {
+        ArrayList transactionTypes;
+        try {
+            transactionTypes = backend.getTransactionTypes();
+        } catch (Exception exc) {
+            return null;
+        }
+        return transactionTypes;
+    }
+
     public static void createNewAccountType(AccountType type) {
         backend.createNewAccountType(type);
     }

@@ -6,7 +6,7 @@ import models.Account;
 import models.AccountType;
 import models.TransactionType;
 import models.User;
-import services.generateBalance;
+import services.ManageNewAccounts;
 
 public class backend {
 
@@ -16,7 +16,7 @@ public class backend {
     public static String dbUrl = "jdbc:mysql://127.0.0.1:3306/users";
     public static String user = "student";
     public static String pass = "student";
-    public static generateBalance generate = new generateBalance();
+    public static ManageNewAccounts manage = new ManageNewAccounts();
 
     public static void main(String[] args) {
     }
@@ -58,9 +58,11 @@ public class backend {
 
                 if (newUserID > 0) {
                     statement = connection.prepareStatement(
-                            "INSERT INTO ACCOUNTS(balance, userID) VALUES (?,?)");
-                    statement.setDouble(1, generate.createBalance());
+                            "INSERT INTO ACCOUNTS(balance, userID, accountNumber, accountTypeID) VALUES (?,?,?,?)");
+                    statement.setDouble(1, manage.createNewSavingsAccountBalance());
                     statement.setInt(2, newUserID);
+                    statement.setInt(3, manage.createNewSavingsAccountNumber());
+                    statement.setInt(4, 2);
                     statement.executeUpdate();
                 }
 
@@ -134,9 +136,7 @@ public class backend {
 
             while (accountTypesRs.next()) {
                 AccountType type = new AccountType();
-                type.setAccountTypeID(accountTypesRs.getInt("accountTypeID"));
                 type.setName(accountTypesRs.getString("name"));
-                type.setDescription(accountTypesRs.getString("description"));
                 type.setCode(accountTypesRs.getString("code"));
                 accountTypes.add(type);
             }
@@ -145,6 +145,27 @@ public class backend {
             System.out.println(exc);
         }
         return accountTypes;
+    }
+
+    public static ArrayList getTransactionTypes() {
+        ArrayList<TransactionType> transactionTypes = new ArrayList<>();
+        try {
+            Connection connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM TransactionTypes");
+            ResultSet transactionTypesRS = statement.executeQuery();
+
+            while (transactionTypesRS.next()) {
+                TransactionType type = new TransactionType();
+                type.setName(transactionTypesRS.getString("name"));
+                type.setCode(transactionTypesRS.getString("code"));
+                transactionTypes.add(type);
+            }
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+        return transactionTypes;
     }
 
     public static void createNewAccountType(AccountType type) {
@@ -192,8 +213,8 @@ public class backend {
             System.out.println(exc);
         }
     }
-    
-        public static void createNewTransactionType(TransactionType type) {
+
+    public static void createNewTransactionType(TransactionType type) {
         try {
             Connection connection = getConn();
             if (connection != null) {
