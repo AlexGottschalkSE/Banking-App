@@ -1,6 +1,9 @@
 package controller;
 
 import database.backend;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import models.User;
 import models.UserDTO;
@@ -8,7 +11,11 @@ import models.UserDTO;
 public class UserController {
 
     public static void createUser(User user) {
-        backend.RegisterNewUser(user);
+        try {
+            backend.RegisterNewUser(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static UserDTO LoginUser(String email, String password) {
@@ -38,7 +45,11 @@ public class UserController {
     }
 
     public static void changeUserPassword(String email, String password) {
-        backend.changeUserPassword(email, password);
+        try {
+            backend.changeUserPassword(email, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Check Password

@@ -7,6 +7,7 @@ package gui;
 
 import controller.UserController;
 import models.User;
+import services.validateRegisterDetails;
 
 /**
  *
@@ -257,15 +258,66 @@ public class register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton1MousePressed
-        User user = new User();
-        user.setName(nameInput.getText());
-        user.setSurname(surnameInput.getText());
-        user.setEmail(emailInput.getText());
-        user.setIDNumber(idInput.getText());
-        user.setPassword(passwordInput.getText());
-        user.setAge(Integer.valueOf(ageInput.getText()));
-        UserController.createUser(user);
+        loginUser();
     }// GEN-LAST:event_jButton1MousePressed
+
+    private void loginUser() {
+        User user = new User();
+        String name = nameInput.getText();
+        String surname = surnameInput.getText();
+        String email = emailInput.getText();
+        String id = idInput.getText();
+        String password = passwordInput.getText();
+        int age;
+        if (!validateRegisterDetails.validateFirstName(name)) {
+            System.out.println("Invalid first name");
+            return;
+        }
+
+        if (!validateRegisterDetails.validateLastName(surname)) {
+            System.out.println("Invalid surname");
+            return;
+        }
+
+        if (!validateRegisterDetails.validateEmail(email)) {
+            System.out.println("Invalid email");
+            return;
+        }
+
+        if (!validateRegisterDetails.validateIDNumber(id)) {
+            System.out.println("Invalid ID");
+            return;
+        }
+
+        try {
+            age = Integer.valueOf(ageInput.getText());
+            if ((age < 18) || (age > 99)) {
+                System.out.println("Invalid age");
+                return;
+            }
+        } catch (Exception exc) {
+            System.out.println("Invalid age");
+            return;
+        }
+        if (!validateRegisterDetails.validateEmail(email)) {
+            System.out.println("Invalid email");
+            return;
+        }
+
+        if (validateRegisterDetails.checkEmailExists(email)) {
+            System.out.println("Email exists");
+            return;
+        }
+
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setIDNumber(id);
+        user.setPassword(password);
+        user.setAge(age);
+        UserController.createUser(user);
+
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -324,16 +376,24 @@ public class register extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(register.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(register.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(register.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(register.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         // </editor-fold>
 

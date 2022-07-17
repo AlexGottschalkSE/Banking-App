@@ -1,7 +1,10 @@
 package controller;
 
 import database.backend;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.AccountType;
 import models.TransactionType;
 
@@ -28,26 +31,50 @@ public class AdminController {
     }
 
     public static void createNewAccountType(AccountType type) {
-        backend.createNewAccountType(type);
+        try {
+            backend.createNewAccountType(type);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void changeAccountType(AccountType type) {
-        backend.changeAccountType(type);
+        try {
+            backend.changeAccountType(type);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void deleteAccountType(String code) {
-        backend.deleteAccountType(code);
+        try {
+            backend.deleteAccountType(code);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void createNewTransactionType(TransactionType type) {
-        backend.createNewTransactionType(type);
+        try {
+            backend.createNewTransactionType(type);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void changeTransactionType(TransactionType type) {
-        backend.changeTransactionType(type);
+        try {
+            backend.changeTransactionType(type);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void deleteTransactionType(String code) {
-        backend.deleteTransactionType(code);
+        try {
+            backend.deleteTransactionType(code);
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
     }
 }

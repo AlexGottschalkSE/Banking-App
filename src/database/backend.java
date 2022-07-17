@@ -16,6 +16,7 @@ public class backend {
     public static String dbUrl = "jdbc:mysql://127.0.0.1:3306/users";
     public static String user = "student";
     public static String pass = "student";
+    private static Connection connection;
     public static ManageNewAccounts manage = new ManageNewAccounts();
 
     public static void main(String[] args) {
@@ -33,9 +34,9 @@ public class backend {
 
     }
 
-    public static void RegisterNewUser(User user) {
+    public static void RegisterNewUser(User user) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             if (connection != null) {
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO USERS(name, surname, password, email, IDNumber, age) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -69,12 +70,14 @@ public class backend {
             }
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
     public static User GetUserByEmail(String email) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement userDetails = connection.prepareStatement(
                     "SELECT * FROM USERS WHERE email = ?");
             userDetails.setString(1, email);
@@ -110,26 +113,30 @@ public class backend {
         } catch (Exception exc) {
             System.out.println(exc);
             throw exc;
+        } finally {
+            connection.close();
         }
 
     }
 
-    public static void changeUserPassword(String email, String password) {
+    public static void changeUserPassword(String email, String password) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE USERS SET password = ? WHERE email = ?");
             statement.setString(1, password);
             statement.setString(2, email);
             statement.executeUpdate();
         } catch (Exception exc) {
+        } finally {
+            connection.close();
         }
     }
 
-    public static ArrayList getAccountTypes() {
+    public static ArrayList getAccountTypes() throws SQLException {
         ArrayList<AccountType> accountTypes = new ArrayList<>();
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM AccountTypes");
             ResultSet accountTypesRs = statement.executeQuery();
@@ -143,14 +150,16 @@ public class backend {
 
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
         return accountTypes;
     }
 
-    public static ArrayList getTransactionTypes() {
+    public static ArrayList getTransactionTypes() throws SQLException {
         ArrayList<TransactionType> transactionTypes = new ArrayList<>();
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT * FROM TransactionTypes");
             ResultSet transactionTypesRS = statement.executeQuery();
@@ -164,13 +173,15 @@ public class backend {
 
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
         return transactionTypes;
     }
 
-    public static void createNewAccountType(AccountType type) {
+    public static void createNewAccountType(AccountType type) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             if (connection != null) {
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO AccountTypes(name, description, code) VALUES (?,?,?)");
@@ -185,12 +196,14 @@ public class backend {
             }
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
-    public static void changeAccountType(AccountType type) {
+    public static void changeAccountType(AccountType type) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE ACCOUNTTYPES SET name = ?, description = ? WHERE code = ?");
             statement.setString(1, type.getName());
@@ -199,24 +212,28 @@ public class backend {
             statement.executeUpdate();
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
-    public static void deleteAccountType(String code) {
+    public static void deleteAccountType(String code) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "DELETE FROM ACCOUNTTYPES WHERE code = ?");
             statement.setString(1, code);
             statement.executeUpdate();
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
-    public static void createNewTransactionType(TransactionType type) {
+    public static void createNewTransactionType(TransactionType type) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             if (connection != null) {
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO TRANSACTIONTYPES(name, description, code) VALUES (?,?,?)");
@@ -231,12 +248,14 @@ public class backend {
             }
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
-    public static void changeTransactionType(TransactionType type) {
+    public static void changeTransactionType(TransactionType type) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "UPDATE TRANSACTIONTYPES SET name = ?, description = ? WHERE code = ?");
             statement.setString(1, type.getName());
@@ -245,18 +264,41 @@ public class backend {
             statement.executeUpdate();
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
     }
 
-    public static void deleteTransactionType(String code) {
+    public static void deleteTransactionType(String code) throws SQLException {
         try {
-            Connection connection = getConn();
+            connection = getConn();
             PreparedStatement statement = connection.prepareStatement(
                     "DELETE FROM TRANSACTIONTYPES WHERE code = ?");
             statement.setString(1, code);
             statement.executeUpdate();
         } catch (Exception exc) {
             System.out.println(exc);
+        } finally {
+            connection.close();
         }
+    }
+
+    public static boolean checkRegistrationEmailExists(String email) throws SQLException {
+        try {
+            connection = getConn();
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM USERS WHERE EMAIL = ?");
+            statement.setString(1, email);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return true;
+            }
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        } finally {
+            connection.close();
+        }
+        return false;
     }
 }
