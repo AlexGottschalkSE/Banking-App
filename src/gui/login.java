@@ -6,9 +6,13 @@
 package gui;
 
 import controller.UserController;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.UserDTO;
 import services.SendEmail;
 import services.createOTP;
+import services.userSecurityMethods;
 
 /**
  *
@@ -202,15 +206,20 @@ public class login extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-
+        String encrpytedPassword = "";
         String email = loginEmail.getText();
         String password = loginPassword.getText();
+        try {
+           encrpytedPassword = (userSecurityMethods.encryptString(password));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        if (isAdmin(email,password)) {
+        if (isAdmin(email, password)) {
             admin adminPage = new admin();
             adminPage.setVisible(true);
         } else {
-            UserDTO user = UserController.LoginUser(email, password);
+            UserDTO user = UserController.LoginUser(email, encrpytedPassword);
             createOTP otp = new createOTP();
 
             code = otp.createCode();
@@ -219,6 +228,7 @@ public class login extends javax.swing.JFrame {
                 this.hide();
                 this.setVisible(true);
             } else {
+                
                 user.setOTP(code);
                 SendEmail msg = new SendEmail(email, "Welcome back " + user.getName(), "Your OTP is: " + code);
                 otpForm form = new otpForm();
@@ -232,7 +242,6 @@ public class login extends javax.swing.JFrame {
     private Boolean isAdmin(String email, String password) {
         return ("admin".equals(email)) && ("admin".equals(password));
     }
-    
 
     private void loginPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_loginPasswordActionPerformed
         // TODO add your handling code here:

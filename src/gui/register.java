@@ -6,7 +6,11 @@
 package gui;
 
 import controller.UserController;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.User;
+import services.userSecurityMethods;
 import services.validateRegisterDetails;
 
 /**
@@ -308,12 +312,21 @@ public class register extends javax.swing.JFrame {
             System.out.println("Email exists");
             return;
         }
-
+        
+        
+        
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
         user.setIDNumber(id);
-        user.setPassword(password);
+        
+        try {
+            user.setPassword(userSecurityMethods.encryptString(password));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         user.setAge(age);
         UserController.createUser(user);
 

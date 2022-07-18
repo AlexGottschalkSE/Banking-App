@@ -6,6 +6,10 @@
 package gui;
 
 import controller.UserController;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import services.userSecurityMethods;
 
 /**
  *
@@ -146,7 +150,15 @@ public class resetPassword extends javax.swing.JFrame {
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         String newPassword = passwordInput.getText();
         String email = emailInput.getText();
-        UserController.changeUserPassword(email, newPassword);
+
+        String encrpytedPassword = "";
+        try {
+            encrpytedPassword = (userSecurityMethods.encryptString(newPassword));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(resetPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        UserController.changeUserPassword(email, encrpytedPassword);
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
