@@ -4,7 +4,8 @@ package models;
 public class Transaction {
 
     private int transactionID;
-    private int accountID;
+    private int recipientAccountNumber;
+    private int senderAccountNumber;
     private String transactionTimestamp;
     private Double transactionAmount;
     private int transactionTypeID;
@@ -13,8 +14,8 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int senderID, int accountID, String dateTime, double amount, int transactionTypeID) {
-        this.accountID = accountID;
+    public Transaction(int senderID, int accountNumber, String dateTime, double amount, int transactionTypeID) {
+        this.recipientAccountNumber = accountNumber;
         this.transactionTimestamp = dateTime;
         this.transactionAmount = amount;
         this.transactionTypeID = transactionTypeID;
@@ -26,14 +27,6 @@ public class Transaction {
 
     public void setTransactionID(int transactionID) {
         this.transactionID = transactionID;
-    }
-
-    public int getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
     }
 
     public String getTransactionTimestamp() {
@@ -58,5 +51,21 @@ public class Transaction {
 
     public void setTransactionTypeID(int transactionTypeID) {
         this.transactionTypeID = transactionTypeID;
+    }
+
+    public int getSenderAccountNumber() {
+        return senderAccountNumber;
+    }
+
+    public void setSenderAccountNumber(int senderAccountNumber) {
+        this.senderAccountNumber = senderAccountNumber;
+    }
+
+    public int getRecipientAccountNumber() {
+        return recipientAccountNumber;
+    }
+
+    public void setRecipientAccountNumber(int recipientAccountNumber) {
+        this.recipientAccountNumber = recipientAccountNumber;
     }
 }

@@ -118,7 +118,7 @@ public class otpForm extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        /*   createOTP create = new createOTP();
+        createOTP create = new createOTP();
         String enteredOTP = otpText.getText();
         String expectedOTP = UserDTO.getOTP();
         if (enteredOTP.equals(expectedOTP)) {
@@ -127,12 +127,7 @@ public class otpForm extends javax.swing.JFrame {
             this.setVisible(false);
             previous.setVisible(false);
             mainMenu.setVisible(true);
-        }*/
-        mainMenu mainMenu = new mainMenu();
-        mainMenu.setUserDetails(user);
-        this.setVisible(false);
-        previous.setVisible(false);
-        mainMenu.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     public void setUserDetails(UserDTO user) {

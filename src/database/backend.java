@@ -324,24 +324,25 @@ public class backend {
         try {
             connection = getConn();
             PreparedStatement logTransaction = connection.prepareStatement(
-                    "INSERT INTO TRANSACTIONS(senderID, accountID, transactionTimestamp, transactionAmount, transactionTypeID) VALUES (?,?,?,?,?)");
+                    "INSERT INTO TRANSACTIONS(senderID, senderAccountNumber, recieverAccountNumber, transactionTimestamp, transactionAmount, transactionTypeID) VALUES (?,?,?,?,?,?)");
             logTransaction.setInt(1, senderDetails.getUserID());
-            logTransaction.setInt(2, transaction.getAccountID());
-            logTransaction.setString(3, transaction.getTransactionTimestamp());
-            logTransaction.setDouble(4, transaction.getTransactionAmount());
-            logTransaction.setDouble(5, transaction.getTransactionTypeID());
+            logTransaction.setInt(2, transaction.getSenderAccountNumber());
+            logTransaction.setInt(3, transaction.getRecipientAccountNumber());
+            logTransaction.setString(4, transaction.getTransactionTimestamp());
+            logTransaction.setDouble(5, transaction.getTransactionAmount());
+            logTransaction.setDouble(6, transaction.getTransactionTypeID());
             logTransaction.executeUpdate();
 
             PreparedStatement lowerBalance = connection.prepareStatement(
                     "UPDATE ACCOUNTS SET balance = balance - ? WHERE accountNumber = ?");
             lowerBalance.setDouble(1, transaction.getTransactionAmount());
-            lowerBalance.setInt(2, transaction.getAccountID());
+            lowerBalance.setInt(2, transaction.getSenderAccountNumber());
             lowerBalance.executeUpdate();
 
             PreparedStatement increaseBalance = connection.prepareStatement(
                     "UPDATE ACCOUNTS SET balance = balance + ? WHERE accountNumber = ?");
             increaseBalance.setDouble(1, transaction.getTransactionAmount());
-            increaseBalance.setInt(2, transaction.getAccountNumber();
+            increaseBalance.setInt(2, transaction.getRecipientAccountNumber());
             increaseBalance.executeUpdate();
 
             return true;

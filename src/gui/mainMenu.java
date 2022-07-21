@@ -14,6 +14,7 @@ import models.Account;
 import models.AccountType;
 import models.Transaction;
 import models.UserDTO;
+import services.SendEmail;
 
 public class mainMenu extends javax.swing.JFrame {
 
@@ -43,7 +44,7 @@ public class mainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         accountInfo2 = new javax.swing.JTextArea();
         accountInfo1 = new javax.swing.JTextArea();
-        jPanel10 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nameInput = new javax.swing.JTextField();
         accountNumberInput = new javax.swing.JTextField();
@@ -56,7 +57,8 @@ public class mainMenu extends javax.swing.JFrame {
         amountInput = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        accountBoxSelection = new javax.swing.JComboBox<>();
+        recipientEmailinput = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -151,7 +153,7 @@ public class mainMenu extends javax.swing.JFrame {
         jTabbedPane1.addTab("Dashboard", jPanel1);
         jTabbedPane1.addTab("", jPanel2);
 
-        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,73 +231,85 @@ public class mainMenu extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Select Account To Send From");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
-        jComboBox1.addAncestorListener(new javax.swing.event.AncestorListener() {
+        accountBoxSelection.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        accountBoxSelection.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jComboBox1AncestorAdded(evt);
+                accountBoxSelectionAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        recipientEmailinput.setBackground(new java.awt.Color(0, 0, 0));
+        recipientEmailinput.setForeground(new java.awt.Color(255, 255, 255));
+        recipientEmailinput.setText("Recipient Email");
+        recipientEmailinput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recipientEmailinputActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nameInput)
-                        .addComponent(accountNumberInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(userReferenceInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(recipientReferenceInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(PoPEmailInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(amountInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(recipientEmailinput)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(nameInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(accountNumberInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(userReferenceInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(recipientReferenceInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(PoPEmailInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)
+                        .addComponent(amountInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(accountBoxSelection, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(656, Short.MAX_VALUE))
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(accountBoxSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(accountNumberInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(recipientReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(recipientEmailinput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accountNumberInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(recipientReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PoPEmailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(amountInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
         );
 
-        jTabbedPane1.addTab("Transfer", jPanel10);
+        jTabbedPane1.addTab("Transfer", jPanel2);
 
         javax.swing.GroupLayout BackPanelLayout = new javax.swing.GroupLayout(BackPanel);
         BackPanel.setLayout(BackPanelLayout);
@@ -395,14 +409,16 @@ public class mainMenu extends javax.swing.JFrame {
         popEmail = PoPEmailInput.getText();
         accountNumber = Integer.valueOf(accountNumberInput.getText());
         amount = Double.valueOf(amountInput.getText());
-
+        String recipientEmail = recipientEmailinput.getText();
         Account selectedAccount = null;
-
-        switch (jComboBox1.getSelectedIndex()) {
-            case -1:
-                selectedAccount = userDetails.accounts.get(0);
+        int choice = accountBoxSelection.getSelectedIndex();
+        switch (choice) {
             case 0:
+                selectedAccount = userDetails.accounts.get(0);
+                break;
+            case 1:
                 selectedAccount = userDetails.accounts.get(1);
+                break;
         }
 
         if (selectedAccount.getBalance() < amount) {
@@ -411,9 +427,10 @@ public class mainMenu extends javax.swing.JFrame {
         }
 
         Transaction recipientAccount = new Transaction(userDetails.getUserID(), accountNumber, getDate(), amount, 1);
+        recipientAccount.setSenderAccountNumber(selectedAccount.getAccountNumber());
         MainMenuController.transferAmount(userDetails, recipientAccount, selectedAccount);
-
-
+        SendEmail msg = new SendEmail(popEmail,"Transaction Notice", "You have completed the following transaction\n\nTransaction Amount: " + amount + "\n\nTo: " + name + "\n\nFrom: " + selectedAccount.getAccountType().getName() + "\n\nDate and Time: " + getDate());
+        msg = new SendEmail(recipientEmail,"Transaction Notice", "You have recieved a transaction:\n\nTransaction Amount: " + amount + "\n\nTo account number: " + accountNumber + "\n\nFrom: " + userDetails.getName() + " " + userDetails.getSurname() + "\n\nDate and Time: " + getDate());
     }//GEN-LAST:event_jButton1MouseClicked
 
     private String getDate() {
@@ -423,19 +440,23 @@ public class mainMenu extends javax.swing.JFrame {
         String formattedDate = myDateObj.format(myFormatObj);
         return formattedDate;
     }
-    private void jComboBox1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox1AncestorAdded
+    private void accountBoxSelectionAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_accountBoxSelectionAncestorAdded
+       accountBoxSelection.removeAllItems();
         try {
-
             userDetails.accounts.stream().forEach((account) -> {
                 AccountType accountType;
                 accountType = account.getAccountType();
-                jComboBox1.addItem(accountType.getName() + ":R" + account.getBalance());
+                accountBoxSelection.addItem(accountType.getName() + ":R" + account.getBalance());
             });
 
         } catch (Exception exc) {
             System.out.println(exc);
         }
-    }//GEN-LAST:event_jComboBox1AncestorAdded
+    }//GEN-LAST:event_accountBoxSelectionAncestorAdded
+
+    private void recipientEmailinputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recipientEmailinputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recipientEmailinputActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
@@ -520,13 +541,13 @@ public class mainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
     private javax.swing.JTextField PoPEmailInput;
+    private javax.swing.JComboBox<String> accountBoxSelection;
     private javax.swing.JTextArea accountInfo1;
     private javax.swing.JTextArea accountInfo2;
     private javax.swing.JTextField accountNumberInput;
     private javax.swing.JTextField amountInput;
     private javax.swing.JLabel headingBanner;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -535,18 +556,11 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField nameInput;
+    private javax.swing.JTextField recipientEmailinput;
     private javax.swing.JTextField recipientReferenceInput;
     private javax.swing.JTextField userReferenceInput;
     // End of variables declaration//GEN-END:variables
