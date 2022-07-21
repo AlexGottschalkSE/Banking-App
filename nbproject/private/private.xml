@@ -5,14 +5,14 @@
         <group>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/Account.java</file>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/UserDTO.java</file>
-            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/services/userSecurityMethods.java</file>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/User.java</file>
-            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/services/SendEmail.java</file>
+            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/controller/UserController.java</file>
+            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/database/backend.java</file>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/Transaction.java</file>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/TransactionType.java</file>
-            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/services/createOTP.java</file>
+            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/controller/MainMenuController.java</file>
             <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/models/AccountType.java</file>
-            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/services/ManageNewAccounts.java</file>
+            <file>file:/C:/Users/alexg/Desktop/Banking%20Program/Banking-App/src/gui/mainMenu.java</file>
         </group>
     </open-files>
 </project-private>

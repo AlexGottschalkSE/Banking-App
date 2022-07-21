@@ -4,8 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import models.Account;
 import models.AccountType;
+import models.Transaction;
 import models.TransactionType;
 import models.User;
+import models.UserDTO;
 import services.ManageNewAccounts;
 
 public class backend {
@@ -98,12 +100,28 @@ public class backend {
                 balanceDetails.setString(1, String.valueOf(user.getId()));
                 ResultSet balancesRs = balanceDetails.executeQuery();
                 user.accounts = new ArrayList<>();
+
                 while (balancesRs.next()) {
                     Account account = new Account();
                     account.setId(balancesRs.getInt("accountID"));
                     account.setUserID(balancesRs.getInt("userID"));
+                    account.setAccountNumber(balancesRs.getInt("accountNumber"));
                     account.setBalance(balancesRs.getDouble("balance"));
+                    account.setAccountTypeID(balancesRs.getInt("accountTypeID"));
                     user.accounts.add(account);
+
+                    PreparedStatement accountTypeDetails = connection.prepareStatement(
+                            "SELECT * FROM ACCOUNTTYPES WHERE accountTypeID = ?");
+                    accountTypeDetails.setString(1, String.valueOf(account.getAccountTypeID()));
+                    ResultSet accountTypeRs = accountTypeDetails.executeQuery();
+                    while (accountTypeRs.next()) {
+                        AccountType type = new AccountType();
+                        type.setAccountTypeID(accountTypeRs.getInt("accountTypeID"));
+                        type.setName(accountTypeRs.getString("name"));
+                        type.setDescription(accountTypeRs.getString("description"));
+                        type.setCode(accountTypeRs.getString("code"));
+                        account.setAccountType(type);
+                    }
                 }
 
                 return user;
@@ -293,6 +311,40 @@ public class backend {
             if (result.next()) {
                 return true;
             }
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        } finally {
+            connection.close();
+        }
+        return false;
+    }
+
+    public static boolean transferAmount(UserDTO senderDetails, Transaction transaction, Account senderAccount) throws SQLException {
+        try {
+            connection = getConn();
+            PreparedStatement logTransaction = connection.prepareStatement(
+                    "INSERT INTO TRANSACTIONS(senderID, accountID, transactionTimestamp, transactionAmount, transactionTypeID) VALUES (?,?,?,?,?)");
+            logTransaction.setInt(1, senderDetails.getUserID());
+            logTransaction.setInt(2, transaction.getAccountID());
+            logTransaction.setString(3, transaction.getTransactionTimestamp());
+            logTransaction.setDouble(4, transaction.getTransactionAmount());
+            logTransaction.setDouble(5, transaction.getTransactionTypeID());
+            logTransaction.executeUpdate();
+
+            PreparedStatement lowerBalance = connection.prepareStatement(
+                    "UPDATE ACCOUNTS SET balance = balance - ? WHERE accountNumber = ?");
+            lowerBalance.setDouble(1, transaction.getTransactionAmount());
+            lowerBalance.setInt(2, transaction.getAccountID());
+            lowerBalance.executeUpdate();
+
+            PreparedStatement increaseBalance = connection.prepareStatement(
+                    "UPDATE ACCOUNTS SET balance = balance + ? WHERE accountNumber = ?");
+            increaseBalance.setDouble(1, transaction.getTransactionAmount());
+            increaseBalance.setInt(2, transaction.getAccountNumber();
+            increaseBalance.executeUpdate();
+
+            return true;
 
         } catch (Exception exc) {
             System.out.println(exc);

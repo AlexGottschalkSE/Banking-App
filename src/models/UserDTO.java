@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class UserDTO {
 
+    private int userID;
     private String name;
     private String surname;
     private String email;
@@ -24,6 +25,7 @@ public class UserDTO {
         this.IDNumber = user.getIDNumber();
         this.age = user.getAge();
         this.accounts = user.accounts;
+        this.userID = user.getId();
     }
 
     public String getName() {
@@ -72,6 +74,14 @@ public class UserDTO {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
 }

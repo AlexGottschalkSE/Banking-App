@@ -5,12 +5,22 @@
  */
 package gui;
 
+import controller.MainMenuController;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
+import models.Account;
+import models.AccountType;
+import models.Transaction;
 import models.UserDTO;
 
 public class mainMenu extends javax.swing.JFrame {
+
     UserDTO userDetails;
+
     public mainMenu() {
+        setUndecorated(true);
         initComponents();
     }
 
@@ -29,12 +39,39 @@ public class mainMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         headingBanner = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        accountInfo2 = new javax.swing.JTextArea();
+        accountInfo1 = new javax.swing.JTextArea();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        nameInput = new javax.swing.JTextField();
+        accountNumberInput = new javax.swing.JTextField();
+        userReferenceInput = new javax.swing.JTextField();
+        recipientReferenceInput = new javax.swing.JTextField();
+        PoPEmailInput = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        amountInput = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         BackPanel.setBackground(new java.awt.Color(0, 0, 0));
         BackPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BackPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                BackPanelAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/5cb0068c7da75a8e715438a94790626b.jpg"))); // NOI18N
 
@@ -53,14 +90,212 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
         headingBanner.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 headingBannerAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
+        });
+
+        jTabbedPane1.setBackground(new java.awt.Color(0, 0, 0));
+        jTabbedPane1.setToolTipText("Dashboard");
+        jTabbedPane1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jTabbedPane1.setName(""); // NOI18N
+        jTabbedPane1.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTabbedPane1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        accountInfo2.setBackground(new java.awt.Color(0, 0, 0));
+        accountInfo2.setColumns(20);
+        accountInfo2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        accountInfo2.setForeground(new java.awt.Color(255, 255, 255));
+        accountInfo2.setRows(5);
+
+        accountInfo1.setBackground(new java.awt.Color(0, 0, 0));
+        accountInfo1.setColumns(20);
+        accountInfo1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        accountInfo1.setForeground(new java.awt.Color(255, 255, 255));
+        accountInfo1.setRows(5);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(accountInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accountInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(602, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(accountInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(accountInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(170, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Dashboard", jPanel1);
+        jTabbedPane1.addTab("", jPanel2);
+
+        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Pay");
+
+        nameInput.setBackground(new java.awt.Color(0, 0, 0));
+        nameInput.setForeground(new java.awt.Color(255, 255, 255));
+        nameInput.setText("Name");
+
+        accountNumberInput.setBackground(new java.awt.Color(0, 0, 0));
+        accountNumberInput.setForeground(new java.awt.Color(255, 255, 255));
+        accountNumberInput.setText("Account Number");
+        accountNumberInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountNumberInputActionPerformed(evt);
+            }
+        });
+
+        userReferenceInput.setBackground(new java.awt.Color(0, 0, 0));
+        userReferenceInput.setForeground(new java.awt.Color(255, 255, 255));
+        userReferenceInput.setText("My Reference");
+        userReferenceInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userReferenceInputActionPerformed(evt);
+            }
+        });
+
+        recipientReferenceInput.setBackground(new java.awt.Color(0, 0, 0));
+        recipientReferenceInput.setForeground(new java.awt.Color(255, 255, 255));
+        recipientReferenceInput.setText("Recipient Reference");
+        recipientReferenceInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recipientReferenceInputActionPerformed(evt);
+            }
+        });
+
+        PoPEmailInput.setBackground(new java.awt.Color(0, 0, 0));
+        PoPEmailInput.setForeground(new java.awt.Color(255, 255, 255));
+        PoPEmailInput.setText("Email");
+        PoPEmailInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PoPEmailInputActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Proof of Payment");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Account Details");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Amount");
+
+        amountInput.setBackground(new java.awt.Color(0, 0, 0));
+        amountInput.setForeground(new java.awt.Color(255, 255, 255));
+        amountInput.setText("Amount");
+        amountInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amountInputActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Process");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Select Account To Send From");
+
+        jComboBox1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
+        jComboBox1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jComboBox1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nameInput)
+                        .addComponent(accountNumberInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(userReferenceInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(recipientReferenceInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(PoPEmailInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(amountInput, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(656, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(accountNumberInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(recipientReferenceInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PoPEmailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(amountInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
+        );
+
+        jTabbedPane1.addTab("Transfer", jPanel10);
 
         javax.swing.GroupLayout BackPanelLayout = new javax.swing.GroupLayout(BackPanel);
         BackPanel.setLayout(BackPanelLayout);
@@ -69,14 +304,17 @@ public class mainMenu extends javax.swing.JFrame {
             .addGroup(BackPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addGap(835, 835, 835)
-                        .addComponent(jLabel3))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(headingBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(headingBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTabbedPane1)
+                            .addComponent(jSeparator1))
+                        .addContainerGap(62, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))))
         );
         BackPanelLayout.setVerticalGroup(
             BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,13 +323,20 @@ public class mainMenu extends javax.swing.JFrame {
                 .addGroup(BackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(BackPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(1, 1, 1)
+                        .addGap(31, 31, 31)
                         .addComponent(headingBanner, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(489, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addGroup(BackPanelLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.getAccessibleContext().setAccessibleName("");
+        jTabbedPane1.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,6 +357,86 @@ public class mainMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BackPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_BackPanelAncestorAdded
+        MainMenuController.displayAccounts(userDetails, accountInfo1, accountInfo2);
+    }//GEN-LAST:event_BackPanelAncestorAdded
+
+    private void jTabbedPane1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTabbedPane1AncestorAdded
+
+    }//GEN-LAST:event_jTabbedPane1AncestorAdded
+
+    private void accountNumberInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountNumberInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accountNumberInputActionPerformed
+
+    private void userReferenceInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userReferenceInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userReferenceInputActionPerformed
+
+    private void recipientReferenceInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recipientReferenceInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_recipientReferenceInputActionPerformed
+
+    private void PoPEmailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoPEmailInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PoPEmailInputActionPerformed
+
+    private void amountInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amountInputActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        String name, userRef, recipRef, popEmail;
+        int accountNumber;
+        double amount;
+        name = nameInput.getText();
+        userRef = userReferenceInput.getText();
+        recipRef = recipientReferenceInput.getText();
+        popEmail = PoPEmailInput.getText();
+        accountNumber = Integer.valueOf(accountNumberInput.getText());
+        amount = Double.valueOf(amountInput.getText());
+
+        Account selectedAccount = null;
+
+        switch (jComboBox1.getSelectedIndex()) {
+            case -1:
+                selectedAccount = userDetails.accounts.get(0);
+            case 0:
+                selectedAccount = userDetails.accounts.get(1);
+        }
+
+        if (selectedAccount.getBalance() < amount) {
+            System.out.println("Insufficient Funds");
+            return;
+        }
+
+        Transaction recipientAccount = new Transaction(userDetails.getUserID(), accountNumber, getDate(), amount, 1);
+        MainMenuController.transferAmount(userDetails, recipientAccount, selectedAccount);
+
+
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private String getDate() {
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String formattedDate = myDateObj.format(myFormatObj);
+        return formattedDate;
+    }
+    private void jComboBox1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox1AncestorAdded
+        try {
+
+            userDetails.accounts.stream().forEach((account) -> {
+                AccountType accountType;
+                accountType = account.getAccountType();
+                jComboBox1.addItem(accountType.getName() + ":R" + account.getBalance());
+            });
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+    }//GEN-LAST:event_jComboBox1AncestorAdded
+
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
         System.exit(0);
@@ -122,10 +447,10 @@ public class mainMenu extends javax.swing.JFrame {
 
     }// GEN-LAST:event_headingBannerComponentAdded
 
-    public void setUserDetails(UserDTO user){
+    public void setUserDetails(UserDTO user) {
         this.userDetails = user;
     }
-    
+
     private void headingBannerAncestorAdded(javax.swing.event.AncestorEvent evt) {// GEN-FIRST:event_headingBannerAncestorAdded
         // TODO add your handling code here:
         Calendar time = Calendar.getInstance();
@@ -142,7 +467,7 @@ public class mainMenu extends javax.swing.JFrame {
         } else {
             decodedPeriod = AM;
         }
-        headingBanner.setText("Good " + decodedPeriod + " " + userDetails.getName() + ", your balance is " + userDetails.accounts);
+        headingBanner.setText("Good " + decodedPeriod + " " + userDetails.getName());
     }// GEN-LAST:event_headingBannerAncestorAdded
 
     /**
@@ -194,9 +519,35 @@ public class mainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackPanel;
+    private javax.swing.JTextField PoPEmailInput;
+    private javax.swing.JTextArea accountInfo1;
+    private javax.swing.JTextArea accountInfo2;
+    private javax.swing.JTextField accountNumberInput;
+    private javax.swing.JTextField amountInput;
     private javax.swing.JLabel headingBanner;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField nameInput;
+    private javax.swing.JTextField recipientReferenceInput;
+    private javax.swing.JTextField userReferenceInput;
     // End of variables declaration//GEN-END:variables
 }
